@@ -2,9 +2,6 @@
  * @file dsStackFunctions.h
  * @version 0.5
  * @date 2022-04-16
- * 
- * FEATURES TO ADD
- * - missing all sort functionallity
  */
 #ifndef DSSTACKFUNCTIONS_H
 #define DSSTACKFUNCTIONS_H

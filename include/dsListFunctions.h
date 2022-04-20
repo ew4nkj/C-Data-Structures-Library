@@ -2,9 +2,6 @@
  * @file dsListFunctions.h
  * @version 0.5
  * @date 2022-04-16
- * 
- * FEATURES TO ADD
- * - all sort functionality
  */
 #ifndef DSLISTFUNCTIONS_H
 #define DSLISTFUNCTIONS_H

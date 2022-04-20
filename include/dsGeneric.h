@@ -1,3 +1,8 @@
+/**
+ * @file dsGeneric.h 
+ * @version 0.1
+ * @date 2022-04-19
+ */
 #ifndef DSGENERIC_H
 #define DSGENERIC_H
 
