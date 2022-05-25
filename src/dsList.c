@@ -123,6 +123,10 @@ void listInsertAfterPosition(List *list, int pos, void *toAdd){
                 ListNode *nodeToAdd = newListNode(toAdd,pos + 1);
                 nodeToAdd->next = currNode->next;
                 nodeToAdd->prev = currNode;
+                
+                if(currNode->next == NULL){
+                    list->tail = nodeToAdd;
+                }
 
                 currNode->next = nodeToAdd;
 
@@ -234,12 +238,13 @@ void freeListContent(List *list){
     list->len = -1;
 }
 
-void listRemoveAtPosition(List *list, int pos){
+void *listRemoveAtPosition(List *list, int pos){
 
-    if(nullArgError("void freeListContent(List *list)",list,1)) return;
-    if(negVArgError("void listRemoveAtPosition(List *list, int pos)",pos,2)) return;
+    if(nullArgError("void freeListContent(List *list)",list,1)) return NULL;
+    if(negVArgError("void listRemoveAtPosition(List *list, int pos)",pos,2)) return NULL;
 
     ListNode *tmp = list->head;
+    void *returnData = NULL;
 
     while(tmp != NULL){
         
@@ -259,25 +264,32 @@ void listRemoveAtPosition(List *list, int pos){
                 list->tail = bye->prev;
             }
 
-            list->deleteData(bye->data);
+            returnData = bye->data;
+            
             void *v = (void *)bye;
             _free(&v);
+            
             break;
 
         }else{
             tmp = tmp->next;
         }
     }
+
     list->len = list->len - 1;
     updateListPositions(list);
+
+    return returnData;
 }
 
-void listRemoveData(List *list, void *toBeDeleted){
+void *listRemoveData(List *list, void *toBeDeleted){
     
-    if(nullArgError("void listRemoveData(List *list, void *toBeDeleted)",list,1)) return;
-    if(nullArgError("void listRemoveData(List *list, void *toBeDeleted)",toBeDeleted,2)) return;
+    if(nullArgError("void *listRemoveData(List *list, void *toBeDeleted)",list,1)) return NULL;
+    if(nullArgError("void *listRemoveData(List *list, void *toBeDeleted)",toBeDeleted,2)) return NULL;
+    if(missingFunctionError("void *listRemoveData(List *list, void *toBeDeleted)",list->compare)) return NULL;
 
     ListNode *tmp = list->head;
+    void *returnData = NULL;
 
     while(tmp != NULL){
         
@@ -297,9 +309,11 @@ void listRemoveData(List *list, void *toBeDeleted){
                 list->tail = bye->prev;
             }
 
-            list->deleteData(bye->data);
+            returnData = bye->data;
+
             void *v = (void *)bye;
             _free(&v);
+            
             break;
 
         }else{
@@ -307,8 +321,11 @@ void listRemoveData(List *list, void *toBeDeleted){
         }
 
     }
+
     list->len = list->len - 1;
     updateListPositions(list);
+
+    return returnData;
 }
 
 List *listJoin(List **dest, List **src){
@@ -334,6 +351,8 @@ List *listJoin(List **dest, List **src){
         
     }
     
+    list->tail = (*src)->tail;
+
     //add second
     curr = (*src)->head;
     while(curr != NULL){
@@ -369,7 +388,7 @@ int listlength(List *list){
 }
 
 int listIsEmpty(List *list){
-    return (list == NULL || list->head == NULL) ? 1: 0;
+    return (list == NULL || list->head == NULL || list->tail == NULL) ? 1: 0;
 }
 
 void listPrint(List *list){

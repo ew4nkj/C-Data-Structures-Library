@@ -114,17 +114,18 @@ int hashTableSize(HashTable *table);
 /*#####################################################################################
  *#                                  REMOVAL FUNCTIONS                                #
  *#####################################################################################
- * - void hashTableRemove(HashTable *table, char *key)
+ * - void *hashTableRemove(HashTable *table, char *key)
  * - void feeHashTableContent(HashTable *table)
  * - void freeHashTable(HashTable *table)
  */
 
 /**
- * Removes data at a given key
+ * Removes data at a given key from the hashtable 
  * @param HashTable *table
  * @param char *key
+ * @return void *data
  */
-void hashTableRemove(HashTable *table, char *key);
+void *hashTableRemove(HashTable *table, char *key);
 
 /**
  * Nulls out the entire table while freeing its content

@@ -75,6 +75,11 @@ int main(int argc, char *argv[]){
     printf("who is in my table?\n");
     hashTablePrint(table);
 
+    Person *personIDontLike = (Person *)hashTableRemove(table,"lara");
+
+    if(personIDontLike){
+        free(personIDontLike);
+    }
 
     char *str = hashTableToString(table);
     printf("\nhow old is everyone?\n%s",str);

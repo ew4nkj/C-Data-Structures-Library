@@ -71,7 +71,12 @@ int main(int argc, char *argv[]){
                 if(testLetter->colour == c[0]){
                     //print out list content and remove it
                     letterToPrint(testLetter);
-                    listRemoveData(letterList,testLetter);
+                    void *rmData = listRemoveData(letterList,testLetter);
+                    
+                    if(rmData){
+                        free(rmData);
+                    }
+                    
                 } 
             }
         }

@@ -116,13 +116,13 @@ void *hashTableSearch(HashTable *table, char *key){
     return NULL;
 }
 
-void hashTableRemove(HashTable *table, char *key){
+void *hashTableRemove(HashTable *table, char *key){
 
-    if(nullArgError("void hashTableRemove(HashTable *table, char *key)",table,1)) return;
-    if(nullArgError("void hashTableRemove(HashTable *table, char *key)",key,2)) return;
-    if(missingFunctionError("void hashTableRemove(HashTable *table, char *key)",table->deleteData)) return;
+    if(nullArgError("void hashTableRemove(HashTable *table, char *key)",table,1)) return NULL;
+    if(nullArgError("void hashTableRemove(HashTable *table, char *key)",key,2)) return NULL;
 
     unsigned int hashCode = hash(key, table->tableSize);
+    void *returnData = NULL;
 
     for(int i = 0; i < table->tableSize; i++){
 
@@ -137,20 +137,24 @@ void hashTableRemove(HashTable *table, char *key){
                 void *v = (void *)table->content[index].key;
                 _free(&v);
 
-                table->deleteData(table->content[index].data);
+                returnData = table->content[index].data;
                 table->content[index].data = NULL;
                 
-                return;
+                table->totalElements = table->totalElements - 1;
+                break;
             }
         }
 
     }
+
+    return returnData;
     
 }
 
 void feeHashTableContent(HashTable *table){
 
     if(nullArgError("void feeHashTableContent(HashTable *table)",table,1)) return;
+    if(missingFunctionError("void feeHashTableContent(HashTable *table)",table->deleteData)) return;
 
     for(int i = 0; i < table->tableSize; i++){
 

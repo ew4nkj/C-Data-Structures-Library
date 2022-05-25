@@ -139,25 +139,27 @@ void *listGetAtPosition(List *list, int pos);
 /*#####################################################################################
  *#                                  REMOVAL FUNCTIONS                                #
  *#####################################################################################
- * - void listRemoveAtPosition(List *list, int pos)
- * - void listRemoveData(List *list, void *toBeDeleted)
+ * - void *listRemoveAtPosition(List *list, int pos)
+ * - void *listRemoveData(List *list, void *toBeDeleted)
  * - void freeListContent(List *list)
  * - void freeList(List *list)                   
  */
 
 /** 
- * Removes a node and its content at a given position
+ * Removes a node and returns its content at a given position
  * @param List *list 
  * @param int pos
+ * @return void *data
  */
-void listRemoveAtPosition(List *list, int pos);
+void *listRemoveAtPosition(List *list, int pos);
 
 /**
  * Removes a node from the list matching given data
  * @param List *list 
- * @param void *toBeDeleted 
+ * @param void *toBeDeleted
+ * @return void *data 
  */
-void listRemoveData(List *list, void *toBeDeleted);
+void *listRemoveData(List *list, void *toBeDeleted);
 
 /**
  * Frees all node content within a given list using the user supplied delete function 

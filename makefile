@@ -19,11 +19,11 @@ examples: $(EXM)hashTableExample.c $(EXM)listExample.c $(EXM)priorityQueueExampl
 	$(CC) $(CFLAGS) $(EXM)queueExample.c $(OBJ_FILES) -I$(INC) -o queueExample
 	$(CC) $(CFLAGS) $(EXM)stackExample.c $(OBJ_FILES) -I$(INC) -o stackExample
 
-##-D$(DEBUG) can be added bellow for stderr print outs
+##$(DEBUG) can be added bellow for stderr print outs
 $(BIN)libds: $(OBJ_FILES)
 	gcc -shared $(OBJ_FILES) -o $(BIN)libds.so
 
-##-D$(DEBUG) can be added bellow for stderr print outs
+##$(DEBUG) can be added bellow for stderr print outs
 $(BIN)ds%.o: $(SRC)ds%.c $(INC)ds*.h           
 	gcc $(CFLAGS) -I$(INC) -c -fpic $< -o $@
 
